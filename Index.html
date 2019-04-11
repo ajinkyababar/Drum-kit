@@ -1,0 +1,102 @@
+<html>
+
+<head>
+        <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+    <div class="keys">
+        <div data-key="65" class="key">
+            <kbd>A</kbd>
+            <!-- <span class="sound">clap</span> -->
+        </div>
+        <div data-key="83" class="key">
+            <kbd>S</kbd>
+            <!-- <span class="sound">clap</span> -->
+        </div>
+        <div data-key="68" class="key">
+            <kbd>D</kbd>
+            <!-- <span class="sound">clap</span> -->
+        </div>
+        <div data-key="70" class="key">
+            <kbd>F</kbd>
+            <!-- <span class="sound">clap</span> -->
+        </div>
+        <div data-key="71" class="key">
+            <kbd>G</kbd>
+            <!-- <span class="sound">clap</span> -->
+        </div>
+        <div data-key="72" class="key">
+            <kbd>H</kbd>
+            <!-- <span class="sound">clap</span> -->
+        </div>
+        <div data-key="74" class="key">
+            <kbd>J</kbd>
+            <!-- <span class="sound">clap</span> -->
+        </div>
+        <div data-key="75" class="key">
+            <kbd>K</kbd>
+            <!-- <span class="sound">clap</span> -->
+        </div>
+        <div data-key="76" class="key">
+            <kbd>L</kbd>
+            <!-- <span class="sound">clap</span> -->
+        </div>
+
+    </div>
+
+    <audio data-key="65" src="sounds/clap.wav"></audio>
+    <audio data-key="83" src="sounds/boom.wav"></audio>
+    <audio data-key="68" src="sounds/hihat.wav"></audio>
+    <audio data-key="70" src="sounds/kick.wav"></audio>
+    <audio data-key="71" src="sounds/openhat.wav"></audio>
+    <audio data-key="72" src="sounds/ride.wav"></audio>
+    <audio data-key="74" src="sounds/snare.wav"></audio>
+    <audio data-key="75" src="sounds/tink.wav"></audio>
+    <audio data-key="76" src="sounds/tom.wav"></audio>
+
+
+    <script>
+
+        window.addEventListener('keydown', function (e) {
+            const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+            const div = document.querySelector(`div[data-key="${e.keyCode}"]`);
+            console.log(e);
+            audio.currentTime = 0; // rewind to the start
+            //div.innerHTML = e.key + " press"
+            audio.play();
+            //div.innerHTML = e.key;
+
+            div.classList.add('playing');
+
+             
+            if (!audio) return; // stop the audio from getting all togher
+            
+        })  
+
+       const keys = document.querySelectorAll('.key');
+       keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+       
+       function  removeTransition(e) {
+           console.log("new =="+e);
+           if(e.propertyName !== 'transform')  return;
+           this.classList.remove('playing');
+       }
+
+    </script>
+
+    <style>
+        body {
+            height: 100%;
+            background-image: url('images/background.jpg');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
+
+   
+
+</body>
+
+</html>
